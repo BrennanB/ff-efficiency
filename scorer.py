@@ -40,5 +40,15 @@ for draft_location in draft_locations:  # Scores all events that need to be scor
             picked_team = int(picked_team)
         ordered_picks.append(picked_team)
 
-    print(ordered_picks)
+    unselected_picks = []
+    for i in range(num_of_players+1, len(df.index)):
+        headers = list(df)
+        for header in headers:
+            unpicked_team = df.at[i, header]
+            if type(unpicked_team) is np.float64:
+                unpicked_team = int(unpicked_team)
+            if unpicked_team != "-":
+                unselected_picks.append(unpicked_team)
 
+    print(ordered_picks)
+    print(unselected_picks)
