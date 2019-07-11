@@ -19,7 +19,16 @@ for draft_location in draft_locations:  # Scores all events that need to be scor
     for i in range(0, len(df.index)):   # Find how many players are in the draft
         if df.at[i, "Player"] == "Available Teams" and num_of_players == 0:
             num_of_players = i
-
     print("There are {} players".format(num_of_players))
 
-    
+    ordered_picks = []
+    index = ["Team 1", "Team 2", "Team 3"]
+    for player in range(0, num_of_players):
+        ordered_picks.append(df.at[player, index[0]])
+    for player in range(num_of_players - 1, -1, -1):
+        ordered_picks.append(df.at[player, index[0]])
+    for player in range(0, num_of_players):
+        ordered_picks.append(df.at[player, index[0]])
+
+    print(ordered_picks)
+
