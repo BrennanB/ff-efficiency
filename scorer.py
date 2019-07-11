@@ -1,6 +1,7 @@
 import os
 import glob
 import pandas as pd
+import numpy as np
 
 SCORE_DIR = "current_scoring"
 
@@ -24,11 +25,20 @@ for draft_location in draft_locations:  # Scores all events that need to be scor
     ordered_picks = []
     index = ["Team 1", "Team 2", "Team 3"]
     for player in range(0, num_of_players):
-        ordered_picks.append(df.at[player, index[0]])
+        picked_team = df.at[player, index[0]]
+        if type(picked_team) is np.float64:
+            picked_team = int(picked_team)
+        ordered_picks.append(picked_team)
     for player in range(num_of_players - 1, -1, -1):
-        ordered_picks.append(df.at[player, index[0]])
+        picked_team = df.at[player, index[1]]
+        if type(picked_team) is np.float64:
+            picked_team = int(picked_team)
+        ordered_picks.append(picked_team)
     for player in range(0, num_of_players):
-        ordered_picks.append(df.at[player, index[0]])
+        picked_team = df.at[player, index[2]]
+        if type(picked_team) is np.float64:
+            picked_team = int(picked_team)
+        ordered_picks.append(picked_team)
 
     print(ordered_picks)
 
